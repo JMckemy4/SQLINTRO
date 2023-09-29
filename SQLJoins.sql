@@ -17,13 +17,12 @@ FROM sales AS s
 INNER JOIN employees AS e 
 ON e.EmployeeID = s.EmployeeID 
 GROUP BY e.EmployeeID, e.FirstName, e.LastName
-ORDER BY Total DESC
+ORDER BY Total DESC;
 /* joins: find the name of the department, and the name of the category for Appliances and Games */
 SELECT d.Name AS DepartmentName, c.Name AS CategoryName
-FROM departments AS d WHERE d.DepartmentID IN (
-SELECT DISTINCT c.DepartmentID
-FROM categories AS c
-WHERE c.Name IN ('Appliances', 'Games');
+FROM departments AS d
+INNER JOIN categories as c
+WHERE c.Name = 'Appliances' OR c.Name = 'Games';
 /* joins: find the product name, total # sold, and total price sold,
 
  for Eagles: Hotel California --You may need to use SUM() */
@@ -34,7 +33,7 @@ ON p.ProductID = s.ProductID
 WHERE p.Name = 'Eagles: Hotel California'
 GROUP BY p.Name; 
 /* joins: find Product name, reviewer name, rating, and comment on the Visio TV. (only return for the lowest rating!) */
-SELECT p.Name, r.ReviewerName, r.Rating, r.Comment
+SELECT p.Name, r.Reviewer, r.Rating, r.Comment
 FROM products AS p
 INNER JOIN reviews AS r
 ON p.ProductID = r.ProductID
